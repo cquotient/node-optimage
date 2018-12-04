@@ -25,9 +25,9 @@
     "node": ">= 0.6.0"
   },
   "dependencies": {
-    "jpegtran-bin": "1.0.0",
-    "optipng-bin": "1.0.0",
-    "gifsicle": "1.0.0"
+    "jpegtran-bin": "4.0.0",
+    "optipng-bin": "5.0.0",
+    "gifsicle": "4.0.1"
   },
   "devDependencies": {
     "modjs": "*"

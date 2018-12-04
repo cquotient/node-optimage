@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+'use strict';
+
+const path = require('path');
+const os = require('os');
+const optimage = require('../');
+
+let inputFiles = [
+        path.join(__dirname, '..', 'test', 'test.gif'),
+        path.join(__dirname, '..', 'test', 'test.jpg'),
+        path.join(__dirname, '..', 'test', 'test.png'),
+    ],
+    outFiles = [
+        path.join(os.tmpdir(), 'test_opt.gif'),
+        path.join(os.tmpdir(), 'test_opt.jpg'),
+        path.join(os.tmpdir(), 'test_opt.png'),
+    ];
+
+for (let n = 0, len = inputFiles.length; n < len; n++) {
+    let options = {
+        inputFile: inputFiles[n],
+        outputFile: outFiles[n]
+    };
+    optimage(options, function(err, res){
+        if (err) {
+            console.error(err);
+            process.exit(1);
+        }
+
+        let saved = res.saved;
+        let stderr = res.stderr;
+
+        if (stderr.indexOf('already optimized') !== -1) {
+            console.log(options.inputFile, "(already optimized)", ">", options.outputFile);
+        }else{
+            console.log(options.inputFile, "(saved "+ saved+ " Bytes)", ">", options.outputFile);
+        }
+    });
+}
